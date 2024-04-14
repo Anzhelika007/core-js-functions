@@ -188,7 +188,7 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-  return function (...args) {
+  return function loggingWrapper(...args) {
     const argsString = args
       .map((arg) => {
         if (typeof arg === 'object' && arg !== null) {
@@ -225,7 +225,7 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn, ...args1) {
-  return function (...args2) {
+  return function appliedPartial(...args2) {
     return fn(...args1, ...args2);
   };
 }
@@ -249,7 +249,7 @@ function partialUsingArguments(fn, ...args1) {
  */
 function getIdGeneratorFunction(startFrom) {
   let currentId = startFrom;
-  return function () {
+  return function createNextInteger() {
     const returnValue = currentId;
     currentId += 1;
     return returnValue;
